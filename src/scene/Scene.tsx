@@ -8,6 +8,7 @@ import { Trajectory } from './Trajectory';
 import { CameraController } from './CameraController';
 import { AxesGuide } from './AxesGuide';
 import { CelestialMarkers } from './CelestialMarkers';
+import { Orbits } from './Orbits';
 import { useMissionStore } from '../store';
 
 function ClockTick() {
@@ -34,6 +35,7 @@ export function Scene() {
         <Spacecraft />
         <AxesGuide />
         <CelestialMarkers />
+        <Orbits />
       </Suspense>
 
       <CameraController />
