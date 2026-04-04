@@ -70,9 +70,9 @@ function App() {
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <InfoLinks />
             <Timeline />
             <PlaybackControls />
+            <InfoLinks />
           </div>
         </Overlay>
       </div>
