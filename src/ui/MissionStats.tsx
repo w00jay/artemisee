@@ -131,9 +131,14 @@ export function MissionStats() {
 
   return (
     <Panel>
-      <div style={{ fontWeight: 600, marginBottom: 6, fontSize: 13, color: '#7dd3fc', letterSpacing: '0.02em' }}>
+      <a
+        href="https://www.nasa.gov/humans-in-space/orion-spacecraft/"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ fontWeight: 600, marginBottom: 6, fontSize: 13, color: '#7dd3fc', letterSpacing: '0.02em', textDecoration: 'none', display: 'block' }}
+      >
         Orion "Integrity"
-      </div>
+      </a>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <div>
           <div><span style={labelStyle}>Earth</span> <span style={valueStyle}>{formatDistance(stats.distEarth)}</span></div>
