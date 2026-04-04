@@ -4,21 +4,22 @@ import { Panel } from './Overlay';
 const SPEEDS = [1, 10, 60, 600, 3600];
 const SPEED_LABELS = ['1x', '10x', '1m/s', '10m/s', '1h/s'];
 
-const btnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.1)',
-  border: '1px solid rgba(255,255,255,0.2)',
-  color: '#fff',
-  borderRadius: 4,
-  padding: '4px 10px',
-  cursor: 'pointer',
-  fontSize: 12,
-};
+function PlayIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+      <polygon points="2,0 12,6 2,12" />
+    </svg>
+  );
+}
 
-const activeBtnStyle: React.CSSProperties = {
-  ...btnStyle,
-  background: 'rgba(0, 204, 255, 0.3)',
-  borderColor: '#00ccff',
-};
+function PauseIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+      <rect x="1" y="0" width="3.5" height="12" rx="1" />
+      <rect x="7.5" y="0" width="3.5" height="12" rx="1" />
+    </svg>
+  );
+}
 
 export function PlaybackControls() {
   const isPlaying = useMissionStore((s) => s.isPlaying);
@@ -30,23 +31,24 @@ export function PlaybackControls() {
   return (
     <Panel style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
       <button
-        style={btnStyle}
+        className="btn"
         onClick={() => setPlaying(!isPlaying)}
+        style={{ display: 'flex', alignItems: 'center', padding: '5px 10px' }}
       >
-        {isPlaying ? '⏸' : '▶'}
+        {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
 
       {SPEEDS.map((speed, i) => (
         <button
           key={speed}
-          style={playbackSpeed === speed ? activeBtnStyle : btnStyle}
+          className={`btn ${playbackSpeed === speed ? 'btn-active' : ''}`}
           onClick={() => setSpeed(speed)}
         >
           {SPEED_LABELS[i]}
         </button>
       ))}
 
-      <button style={btnStyle} onClick={jumpToNow}>
+      <button className="btn" onClick={jumpToNow}>
         NOW
       </button>
     </Panel>

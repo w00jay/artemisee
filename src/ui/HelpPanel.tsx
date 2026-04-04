@@ -5,46 +5,49 @@ const controls = [
   { input: 'Left drag', action: 'Rotate view' },
   { input: 'Right drag', action: 'Pan view' },
   { input: 'Scroll wheel', action: 'Zoom in / out' },
-  { input: 'Middle drag', action: 'Dolly (zoom smooth)' },
+  { input: 'Middle drag', action: 'Dolly (smooth zoom)' },
   { input: 'Double click', action: 'Focus on point' },
   { input: 'Pinch (touch)', action: 'Zoom in / out' },
   { input: 'Two-finger drag', action: 'Pan view' },
 ];
 
-const btnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.1)',
-  border: '1px solid rgba(255,255,255,0.2)',
-  color: '#fff',
-  borderRadius: 4,
-  padding: '4px 10px',
-  cursor: 'pointer',
-  fontSize: 12,
-};
+function HelpIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <circle cx="7" cy="7" r="6" />
+      <path d="M5.5 5.5a1.5 1.5 0 0 1 2.9.5c0 1-1.4 1-1.4 2" strokeLinecap="round" />
+      <circle cx="7" cy="10.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
 export function HelpPanel() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, pointerEvents: 'auto' }}>
-      <button style={btnStyle} onClick={() => setOpen(!open)}>
-        {open ? 'Close help' : '? Controls'}
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6, pointerEvents: 'auto' }}>
+      <button
+        className="btn"
+        onClick={() => setOpen(!open)}
+        style={{ display: 'flex', alignItems: 'center', gap: 6 }}
+      >
+        <HelpIcon />
+        {open ? 'Close' : 'Controls'}
       </button>
 
       {open && (
-        <Panel style={{ minWidth: 200 }}>
-          <div style={{ fontWeight: 600, marginBottom: 6, fontSize: 12 }}>
+        <Panel style={{ minWidth: 220 }}>
+          <div style={{ fontWeight: 600, marginBottom: 8, fontSize: 12, color: '#7dd3fc', letterSpacing: '0.02em' }}>
             Camera Controls
           </div>
-          <table style={{ fontSize: 11, borderSpacing: '8px 2px', margin: '-2px -8px' }}>
-            <tbody>
-              {controls.map(({ input, action }) => (
-                <tr key={input}>
-                  <td style={{ color: '#00ccff', whiteSpace: 'nowrap' }}>{input}</td>
-                  <td style={{ opacity: 0.8 }}>{action}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            {controls.map(({ input, action }) => (
+              <div key={input} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11 }}>
+                <span style={{ color: 'rgba(228, 228, 231, 0.5)' }}>{input}</span>
+                <span style={{ color: '#e4e4e7' }}>{action}</span>
+              </div>
+            ))}
+          </div>
         </Panel>
       )}
     </div>

@@ -32,7 +32,7 @@ export function Earth() {
           <meshStandardMaterial color="#2244aa" />
         )}
       </mesh>
-      <Html position={[0, 2, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, 4, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#88bbff', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>
           Earth
         </span>

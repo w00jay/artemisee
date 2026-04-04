@@ -6,9 +6,45 @@
 
 html, body, #root {
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   overflow: hidden;
-  background: #000;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0a0a0c;
+  color: #e4e4e7;
+  font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Shared button base — used by all UI buttons */
+.btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e4e4e7;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  user-select: none;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-active {
+  background: rgba(0, 190, 240, 0.2);
+  border-color: rgba(0, 190, 240, 0.5);
+  color: #7dd3fc;
+}
+
+.btn-active:hover {
+  background: rgba(0, 190, 240, 0.3);
 }

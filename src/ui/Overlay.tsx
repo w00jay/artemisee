@@ -18,14 +18,18 @@ export function Overlay({ children }: { children: ReactNode }) {
 }
 
 const panelStyle: React.CSSProperties = {
-  background: 'rgba(0, 0, 0, 0.7)',
-  backdropFilter: 'blur(8px)',
-  borderRadius: 8,
+  background: 'rgba(10, 10, 14, 0.72)',
+  backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
+  borderRadius: 10,
   padding: '12px 16px',
   pointerEvents: 'auto',
-  color: '#fff',
+  color: '#e4e4e7',
   fontSize: 13,
-  lineHeight: 1.5,
+  lineHeight: 1.6,
+  border: '1px solid rgba(255, 255, 255, 0.08)',
+  boxShadow:
+    'inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 24px rgba(0, 0, 0, 0.4)',
 };
 
 export function Panel({

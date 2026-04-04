@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Line } from '@react-three/drei';
+import { Line, Html } from '@react-three/drei';
 import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 import { j2000ToThreeJS } from '../data/coordinates';
@@ -37,21 +37,39 @@ function useMoonOrbit(): [number, number, number][] | null {
   }, [Math.floor(simTime / 3_600_000)]);
 }
 
+const ringLabelStyle: React.CSSProperties = {
+  fontSize: 9,
+  fontWeight: 600,
+  whiteSpace: 'nowrap',
+  textShadow: '0 0 4px #000, 0 0 8px #000',
+  pointerEvents: 'none',
+};
+
 function MoonOrbit() {
   const points = useMoonOrbit();
   if (!points) return null;
 
+  // Place label at the first point of the orbit
+  const labelPos = points[0];
+
   return (
-    <Line
-      points={points}
-      color="#8888aa"
-      lineWidth={2}
-      transparent
-      opacity={0.55}
-      dashed
-      dashSize={1}
-      gapSize={0.5}
-    />
+    <group>
+      <Line
+        points={points}
+        color="#8888aa"
+        lineWidth={2}
+        transparent
+        opacity={0.55}
+        dashed
+        dashSize={1}
+        gapSize={0.5}
+      />
+      <Html position={labelPos} style={{ pointerEvents: 'none' }}>
+        <span style={{ ...ringLabelStyle, color: '#8888aa' }}>
+          Moon Orbit
+        </span>
+      </Html>
+    </group>
   );
 }
 
@@ -72,17 +90,28 @@ function EclipticRing() {
     return pts;
   }, []);
 
+  // Place label at the "top" of the ecliptic (angle=90°)
+  const labelIdx = Math.floor(SEGMENTS / 4);
+  const labelPos = points[labelIdx];
+
   return (
-    <Line
-      points={points}
-      color="#ffee44"
-      lineWidth={1}
-      transparent
-      opacity={0.12}
-      dashed
-      dashSize={2}
-      gapSize={1.5}
-    />
+    <group>
+      <Line
+        points={points}
+        color="#ffee44"
+        lineWidth={1.5}
+        transparent
+        opacity={0.25}
+        dashed
+        dashSize={2}
+        gapSize={1.5}
+      />
+      <Html position={labelPos} style={{ pointerEvents: 'none' }}>
+        <span style={{ ...ringLabelStyle, color: 'rgba(255, 238, 68, 0.6)' }}>
+          Ecliptic Plane
+        </span>
+      </Html>
+    </group>
   );
 }
 

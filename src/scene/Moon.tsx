@@ -41,7 +41,7 @@ export function Moon() {
           <meshStandardMaterial color="#aaaaaa" />
         )}
       </mesh>
-      <Html position={[0, moonScale + 1, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, moonScale + 3, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#cccccc', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>
           Moon
         </span>

@@ -37,7 +37,7 @@ function Marker({ body, label, color, size }: typeof bodies[number]) {
     groupRef.current.quaternion.copy(quat);
   });
 
-  const coneHeight = size * 4;
+  const coneHeight = size * 12;
   const coneRadius = size * 1.2;
 
   return (
@@ -52,7 +52,7 @@ function Marker({ body, label, color, size }: typeof bodies[number]) {
         <cylinderGeometry args={[coneRadius * 0.2, coneRadius * 0.2, coneHeight, 8]} />
         <meshBasicMaterial color={color} transparent opacity={0.5} />
       </mesh>
-      <Html position={[0, coneHeight + 3, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, coneHeight + 5, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{
           color,
           fontSize: 10,

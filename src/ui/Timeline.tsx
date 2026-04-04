@@ -10,7 +10,7 @@ const PHASES = [
   { name: 'Outbound', start: 0.14, end: 0.45 },
   { name: 'Lunar Flyby', start: 0.45, end: 0.55 },
   { name: 'Return', start: 0.55, end: 0.92 },
-  { name: 'Entry & Splashdown', start: 0.92, end: 1.0 },
+  { name: 'Entry / Splashdown', start: 0.92, end: 1.0 },
 ];
 
 export function Timeline() {
@@ -36,32 +36,56 @@ export function Timeline() {
 
   return (
     <Panel>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
-        <span style={{ fontSize: 11, opacity: 0.7 }}>
-          {new Date(simTime).toUTCString().slice(0, 25)} UTC
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
+        <span style={{ fontSize: 11, color: 'rgba(228, 228, 231, 0.5)', fontVariantNumeric: 'tabular-nums' }}>
+          {new Date(simTime).toISOString().replace('T', ' ').slice(0, 19)} UTC
         </span>
-        <span style={{ fontSize: 11, fontWeight: 600, color: '#00ccff' }}>
-          {currentPhase?.name ?? '—'}
+        <span style={{ fontSize: 11, fontWeight: 600, color: '#7dd3fc' }}>
+          {currentPhase?.name ?? '\u2014'}
         </span>
       </div>
 
+      {/* Clickable track — padded for easier targeting */}
       <div
         onClick={handleClick}
         style={{
-          height: 6,
-          background: 'rgba(255,255,255,0.15)',
-          borderRadius: 3,
+          padding: '6px 0',
           cursor: 'pointer',
-          position: 'relative',
         }}
       >
         <div
           style={{
-            width: `${progress * 100}%`,
-            height: '100%',
-            background: '#00ccff',
-            borderRadius: 3,
-            transition: 'width 0.1s',
+            height: 4,
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: 2,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Fill */}
+          <div
+            style={{
+              width: `${progress * 100}%`,
+              height: '100%',
+              background: 'linear-gradient(90deg, #0ea5e9, #7dd3fc)',
+              borderRadius: 2,
+            }}
+          />
+        </div>
+        {/* Playhead dot */}
+        <div
+          style={{
+            position: 'relative',
+            top: -7,
+            left: `${progress * 100}%`,
+            width: 10,
+            height: 10,
+            marginLeft: -5,
+            borderRadius: '50%',
+            background: '#7dd3fc',
+            border: '2px solid rgba(10, 10, 14, 0.8)',
+            boxShadow: '0 0 6px rgba(125, 211, 252, 0.4)',
+            transition: 'left 0.1s',
           }}
         />
       </div>
