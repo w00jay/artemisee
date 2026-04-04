@@ -62,7 +62,7 @@ export function Spacecraft() {
         <sphereGeometry args={[1.5, 16, 16]} />
         <meshBasicMaterial color="#ffaa00" transparent opacity={0.08} />
       </mesh>
-      <Html position={[0, 4, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, 2.5, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#ffcc44', fontSize: 11, fontWeight: 600, textShadow: '0 0 4px #000', whiteSpace: 'nowrap' }}>
           Orion
         </span>
