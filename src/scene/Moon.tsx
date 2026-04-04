@@ -28,7 +28,9 @@ export function Moon() {
     meshRef.current.position.copy(pos);
   });
 
-  const moonScale = MOON_RADIUS_KM / EARTH_RADIUS_KM;
+  // True scale is 0.273 Earth radii — too small at overview zoom.
+  // Exaggerate to ~1 Earth radius for visibility.
+  const moonScale = 1;
 
   return (
     <group ref={meshRef}>
