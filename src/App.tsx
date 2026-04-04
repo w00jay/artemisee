@@ -1,6 +1,12 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { Scene } from './scene/Scene';
+import { Overlay } from './ui/Overlay';
+import { MissionStats } from './ui/MissionStats';
+import { PlaybackControls } from './ui/PlaybackControls';
+import { CameraButtons } from './ui/CameraButtons';
+import { Timeline } from './ui/Timeline';
+import { DsnStatus } from './ui/DsnStatus';
 import { fetchTrajectory } from './data/horizons';
 import { useMissionStore } from './store';
 
@@ -12,7 +18,7 @@ function DataLoader() {
   const { data, error } = useQuery({
     queryKey: ['trajectory'],
     queryFn: () => fetchTrajectory(),
-    refetchInterval: 30 * 60 * 1000, // 30 min
+    refetchInterval: 30 * 60 * 1000,
     staleTime: 15 * 60 * 1000,
   });
 
@@ -33,6 +39,19 @@ function App() {
       <DataLoader />
       <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
         <Scene />
+        <Overlay>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <MissionStats />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
+              <CameraButtons />
+              <DsnStatus />
+            </div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Timeline />
+            <PlaybackControls />
+          </div>
+        </Overlay>
       </div>
     </QueryClientProvider>
   );
