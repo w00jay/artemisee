@@ -4,13 +4,15 @@ import { MISSION_END, LAUNCH_DATE } from '../lib/constants';
 import { Panel } from './Overlay';
 
 const PHASES = [
-  { name: 'Launch', start: 0, end: 0.04 },
-  { name: 'Earth Orbit', start: 0.04, end: 0.12 },
-  { name: 'TLI', start: 0.12, end: 0.14 },
-  { name: 'Outbound', start: 0.14, end: 0.45 },
-  { name: 'Lunar Flyby', start: 0.45, end: 0.55 },
-  { name: 'Return', start: 0.55, end: 0.92 },
-  { name: 'Entry / Splashdown', start: 0.92, end: 1.0 },
+  { name: 'Launch / Ascent',        start: 0,      end: 0.016 },
+  { name: 'ICPS Separation',        start: 0.016,  end: 0.023 },
+  { name: 'Earth Orbit Ops',        start: 0.023,  end: 0.060 },
+  { name: 'Perigee Raise',          start: 0.060,  end: 0.117 },
+  { name: 'Trans-Lunar Injection',  start: 0.117,  end: 0.118 },
+  { name: 'Outbound Coast',         start: 0.118,  end: 0.472 },
+  { name: 'Lunar Flyby',            start: 0.472,  end: 0.642 },
+  { name: 'Return Coast',           start: 0.642,  end: 0.980 },
+  { name: 'Entry / Splashdown',     start: 0.980,  end: 1.0 },
 ];
 
 export function Timeline() {
