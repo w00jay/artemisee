@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { Scene } from './scene/Scene';
+import { useEffect, lazy, Suspense } from 'react';
+
+const Scene = lazy(() => import('./scene/Scene').then((m) => ({ default: m.Scene })));
 import { Overlay } from './ui/Overlay';
 import { MissionStats } from './ui/MissionStats';
 import { PlaybackControls } from './ui/PlaybackControls';
@@ -51,7 +52,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div style={{ width: '100vw', height: '100dvh', position: 'relative' }}>
-        <Scene />
+        <Suspense fallback={null}>
+          <Scene />
+        </Suspense>
         <DataLoader />
         <Overlay>
           <div className="overlay-top">

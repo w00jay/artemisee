@@ -6,15 +6,11 @@ import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 import { j2000ToThreeJS } from '../data/coordinates';
 
+useTexture.preload('/textures/moon-4k.jpg');
+
 export function Moon() {
   const meshRef = useRef<THREE.Group>(null!);
-
-  let texture: THREE.Texture | null = null;
-  try {
-    texture = useTexture('/textures/moon-4k.jpg');
-  } catch {
-    // Fallback color
-  }
+  const texture = useTexture('/textures/moon-4k.jpg');
 
   useFrame(() => {
     const simTime = useMissionStore.getState().simTime;
@@ -35,11 +31,7 @@ export function Moon() {
     <group ref={meshRef}>
       <mesh>
         <sphereGeometry args={[moonScale, 32, 32]} />
-        {texture ? (
-          <meshStandardMaterial map={texture} />
-        ) : (
-          <meshStandardMaterial color="#aaaaaa" />
-        )}
+        <meshStandardMaterial map={texture} />
       </mesh>
       <Html position={[0, moonScale + 3, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#cccccc', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>

@@ -5,16 +5,12 @@ import * as THREE from 'three';
 import { SiderealTime } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 
+// Preload texture so Suspense can handle the loading state
+useTexture.preload('/textures/earth-4k.jpg');
+
 export function Earth() {
   const meshRef = useRef<THREE.Mesh>(null!);
-
-  // Use a placeholder color if texture isn't available yet
-  let texture: THREE.Texture | null = null;
-  try {
-    texture = useTexture('/textures/earth-4k.jpg');
-  } catch {
-    // Texture not available; will use fallback color
-  }
+  const texture = useTexture('/textures/earth-4k.jpg');
 
   useFrame(() => {
     const simTime = useMissionStore.getState().simTime;
@@ -26,11 +22,7 @@ export function Earth() {
     <group>
       <mesh ref={meshRef}>
         <sphereGeometry args={[1, 64, 64]} />
-        {texture ? (
-          <meshStandardMaterial map={texture} />
-        ) : (
-          <meshStandardMaterial color="#2244aa" />
-        )}
+        <meshStandardMaterial map={texture} />
       </mesh>
       <Html position={[0, 4, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#88bbff', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>
