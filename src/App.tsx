@@ -53,15 +53,17 @@ function App() {
         <Scene />
         <DataLoader />
         <Overlay>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div className="overlay-top">
+            <div className="overlay-top-left">
               <MissionStats />
               <HelpPanel />
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
+            <div className="overlay-top-right">
               <CameraButtons />
-              <Milestones />
-              <DsnStatus />
+              <div className="mobile-hide">
+                <Milestones />
+                <DsnStatus />
+              </div>
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

@@ -48,3 +48,47 @@ html, body, #root {
 .btn-active:hover {
   background: rgba(0, 190, 240, 0.3);
 }
+
+/* Top overlay layout */
+.overlay-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.overlay-top-left,
+.overlay-top-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.overlay-top-right {
+  align-items: flex-end;
+}
+
+/* Hide secondary panels on mobile */
+.mobile-hide {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .overlay-top {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .overlay-top-right {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .mobile-hide {
+    display: none;
+  }
+}
