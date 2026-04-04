@@ -10,6 +10,7 @@ import { DsnStatus } from './ui/DsnStatus';
 import { HelpPanel } from './ui/HelpPanel';
 import { Milestones } from './ui/Milestones';
 import { LoadingOverlay, ErrorOverlay } from './ui/StatusOverlay';
+import { InfoLinks } from './ui/InfoLinks';
 import { fetchTrajectory } from './data/horizons';
 import { useMissionStore } from './store';
 
@@ -69,6 +70,7 @@ function App() {
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <InfoLinks />
             <Timeline />
             <PlaybackControls />
           </div>
