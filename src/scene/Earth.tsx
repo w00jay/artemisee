@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTexture } from '@react-three/drei';
+import { useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { SiderealTime } from 'astronomy-engine';
 import { useMissionStore } from '../store';
@@ -23,13 +23,20 @@ export function Earth() {
   });
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[1, 64, 64]} />
-      {texture ? (
-        <meshStandardMaterial map={texture} />
-      ) : (
-        <meshStandardMaterial color="#2244aa" />
-      )}
-    </mesh>
+    <group>
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[1, 64, 64]} />
+        {texture ? (
+          <meshStandardMaterial map={texture} />
+        ) : (
+          <meshStandardMaterial color="#2244aa" />
+        )}
+      </mesh>
+      <Html position={[0, 1.4, 0]} center style={{ pointerEvents: 'none' }}>
+        <span style={{ color: '#88bbff', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>
+          Earth
+        </span>
+      </Html>
+    </group>
   );
 }

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useMissionStore } from '../store';
 import { hermiteInterpolate } from '../data/interpolate';
@@ -37,6 +38,11 @@ export function Spacecraft() {
         <sphereGeometry args={[2.5, 16, 16]} />
         <meshBasicMaterial color="#ffaa00" transparent opacity={0.15} />
       </mesh>
+      <Html position={[0, 3.5, 0]} center style={{ pointerEvents: 'none' }}>
+        <span style={{ color: '#ffcc44', fontSize: 11, fontWeight: 600, textShadow: '0 0 4px #000', whiteSpace: 'nowrap' }}>
+          Orion
+        </span>
+      </Html>
     </group>
   );
 }

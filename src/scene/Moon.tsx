@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { useTexture } from '@react-three/drei';
+import { useTexture, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
@@ -8,7 +8,7 @@ import { j2000ToThreeJS } from '../data/coordinates';
 import { MOON_RADIUS_KM, EARTH_RADIUS_KM } from '../lib/constants';
 
 export function Moon() {
-  const meshRef = useRef<THREE.Mesh>(null!);
+  const meshRef = useRef<THREE.Group>(null!);
 
   let texture: THREE.Texture | null = null;
   try {
@@ -31,13 +31,20 @@ export function Moon() {
   const moonScale = MOON_RADIUS_KM / EARTH_RADIUS_KM;
 
   return (
-    <mesh ref={meshRef}>
-      <sphereGeometry args={[moonScale, 32, 32]} />
-      {texture ? (
-        <meshStandardMaterial map={texture} />
-      ) : (
-        <meshStandardMaterial color="#aaaaaa" />
-      )}
-    </mesh>
+    <group ref={meshRef}>
+      <mesh>
+        <sphereGeometry args={[moonScale, 32, 32]} />
+        {texture ? (
+          <meshStandardMaterial map={texture} />
+        ) : (
+          <meshStandardMaterial color="#aaaaaa" />
+        )}
+      </mesh>
+      <Html position={[0, moonScale + 0.3, 0]} center style={{ pointerEvents: 'none' }}>
+        <span style={{ color: '#cccccc', fontSize: 12, fontWeight: 600, textShadow: '0 0 4px #000' }}>
+          Moon
+        </span>
+      </Html>
+    </group>
   );
 }
