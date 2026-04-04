@@ -19,10 +19,12 @@ horizonsRouter.get('/', async (req, res) => {
     }
 
     const jplUrl = `https://ssd.jpl.nasa.gov/api/horizons.api?${params}`;
+    console.log('[horizons] Fetching:', jplUrl);
     const jpl = await fetch(jplUrl);
     const data = await jpl.json();
 
     if (data.error) {
+      console.error('[horizons] JPL error:', data.error);
       return res.status(502).json({ error: data.error });
     }
 

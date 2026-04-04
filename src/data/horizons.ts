@@ -59,8 +59,8 @@ export async function fetchTrajectory(
 ): Promise<TrajectoryPoint[]> {
   const params = new URLSearchParams({
     ...HORIZONS_DEFAULTS,
-    START_TIME: `'${start.toISOString().split('T')[0]}'`,
-    STOP_TIME: `'${end.toISOString().split('T')[0]}'`,
+    START_TIME: `'${start.toISOString().slice(0, 19)}'`,
+    STOP_TIME: `'${end.toISOString().slice(0, 19)}'`,
   });
 
   const res = await fetch(`/api/horizons?${params}`);
