@@ -24,7 +24,7 @@ export function Moon() {
   });
 
   // Exaggerated for visibility (true scale is 0.273 Earth radii).
-  const moonScale = 4;
+  const moonScale = 3;
 
   return (
     <group ref={meshRef}>
