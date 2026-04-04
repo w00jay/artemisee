@@ -6,6 +6,7 @@ import { Moon } from './Moon';
 import { Spacecraft } from './Spacecraft';
 import { Trajectory } from './Trajectory';
 import { CameraController } from './CameraController';
+import { AxesGuide } from './AxesGuide';
 import { useMissionStore } from '../store';
 
 function ClockTick() {
@@ -30,6 +31,7 @@ export function Scene() {
         <Moon />
         <Trajectory />
         <Spacecraft />
+        <AxesGuide />
       </Suspense>
 
       <CameraController />
