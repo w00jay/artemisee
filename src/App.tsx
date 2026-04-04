@@ -59,7 +59,9 @@ function App() {
               <HelpPanel />
             </div>
             <div className="overlay-top-right">
-              <CameraButtons />
+              <div className="mobile-hide-controls">
+                <CameraButtons />
+              </div>
               <div className="mobile-hide">
                 <Milestones />
                 <DsnStatus />

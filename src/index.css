@@ -91,4 +91,8 @@ html, body, #root {
   .mobile-hide {
     display: none;
   }
+
+  .mobile-hide-controls {
+    display: none;
+  }
 }
