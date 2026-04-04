@@ -7,7 +7,8 @@ export const KM_PER_AU = 149_597_870.691;
 export const MISSION_START = new Date('2026-04-02T02:00:00Z');
 // Splashdown ~Apr 11 00:17 UTC; ephemeris may end slightly before
 export const MISSION_END = new Date('2026-04-10T23:00:00Z');
-export const LAUNCH_DATE = new Date('2026-04-01T00:00:00Z');
+// Launched April 1, 2026 at 22:35:12 UTC from LC-39B, Kennedy Space Center
+export const LAUNCH_DATE = new Date('2026-04-01T22:35:12Z');
 
 // Horizons spacecraft ID
 export const ARTEMIS_II_ID = '-1024';
