@@ -44,10 +44,10 @@ function MoonOrbit() {
   return (
     <Line
       points={points}
-      color="#666666"
-      lineWidth={1}
+      color="#8888aa"
+      lineWidth={2}
       transparent
-      opacity={0.35}
+      opacity={0.55}
       dashed
       dashSize={1}
       gapSize={0.5}
