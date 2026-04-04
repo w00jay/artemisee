@@ -7,6 +7,7 @@ import { useMissionStore } from '../store';
 import { j2000ToThreeJS } from '../data/coordinates';
 
 const MARKER_DISTANCE = 150; // Earth radii — fixed distance for all markers
+const UP = new THREE.Vector3(0, 1, 0);
 
 const bodies = [
   { body: Body.Sun, label: 'Sun', color: '#ffee44', size: 1.5 },
@@ -17,6 +18,7 @@ const bodies = [
 
 function Marker({ body, label, color, size }: typeof bodies[number]) {
   const groupRef = useRef<THREE.Group>(null!);
+  const dir = useRef(new THREE.Vector3());
 
   useFrame(() => {
     const simTime = useMissionStore.getState().simTime;
@@ -26,22 +28,31 @@ function Marker({ body, label, color, size }: typeof bodies[number]) {
       geo.y * KM_PER_AU,
       geo.z * KM_PER_AU,
     );
-    // Normalize to fixed distance
-    pos.normalize().multiplyScalar(MARKER_DISTANCE);
-    groupRef.current.position.copy(pos);
+
+    dir.current.copy(pos).normalize();
+    groupRef.current.position.copy(dir.current).multiplyScalar(MARKER_DISTANCE);
+
+    // Point the cone along the direction vector (away from Earth)
+    const quat = new THREE.Quaternion().setFromUnitVectors(UP, dir.current);
+    groupRef.current.quaternion.copy(quat);
   });
+
+  const coneHeight = size * 4;
+  const coneRadius = size * 1.2;
 
   return (
     <group ref={groupRef}>
-      <mesh>
-        <sphereGeometry args={[size, 12, 12]} />
+      {/* Arrow cone pointing outward */}
+      <mesh position={[0, coneHeight / 2, 0]}>
+        <coneGeometry args={[coneRadius, coneHeight, 12]} />
         <meshBasicMaterial color={color} />
       </mesh>
-      <mesh>
-        <sphereGeometry args={[size * 2.5, 12, 12]} />
-        <meshBasicMaterial color={color} transparent opacity={0.08} />
+      {/* Thin tail shaft */}
+      <mesh position={[0, -coneHeight * 0.6, 0]}>
+        <cylinderGeometry args={[coneRadius * 0.2, coneRadius * 0.2, coneHeight, 8]} />
+        <meshBasicMaterial color={color} transparent opacity={0.5} />
       </mesh>
-      <Html position={[0, size + 1, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, coneHeight + 1, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{
           color,
           fontSize: 10,
