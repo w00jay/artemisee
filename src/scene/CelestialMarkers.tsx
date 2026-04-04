@@ -10,10 +10,10 @@ const MARKER_DISTANCE = 150; // Earth radii — fixed distance for all markers
 const UP = new THREE.Vector3(0, 1, 0);
 
 const bodies = [
-  { body: Body.Sun, label: 'Sun', color: '#ffee44', size: 1.5 },
-  { body: Body.Venus, label: 'Venus', color: '#eeddaa', size: 0.5 },
-  { body: Body.Mars, label: 'Mars', color: '#ff6644', size: 0.5 },
-  { body: Body.Mercury, label: 'Mercury', color: '#bbaa99', size: 0.4 },
+  { body: Body.Sun, label: 'Sun', color: '#ffee44', size: 3 },
+  { body: Body.Venus, label: 'Venus', color: '#eeddaa', size: 1.2 },
+  { body: Body.Mars, label: 'Mars', color: '#ff6644', size: 1.2 },
+  { body: Body.Mercury, label: 'Mercury', color: '#bbaa99', size: 1 },
 ];
 
 function Marker({ body, label, color, size }: typeof bodies[number]) {
@@ -52,7 +52,7 @@ function Marker({ body, label, color, size }: typeof bodies[number]) {
         <cylinderGeometry args={[coneRadius * 0.2, coneRadius * 0.2, coneHeight, 8]} />
         <meshBasicMaterial color={color} transparent opacity={0.5} />
       </mesh>
-      <Html position={[0, coneHeight + 1, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, coneHeight + 3, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{
           color,
           fontSize: 10,
