@@ -25,7 +25,7 @@ export function HelpPanel() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, pointerEvents: 'auto' }}>
       <button style={btnStyle} onClick={() => setOpen(!open)}>
         {open ? 'Close help' : '? Controls'}
       </button>
