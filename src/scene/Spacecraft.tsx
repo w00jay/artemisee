@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame, useThree, useLoader } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { useMissionStore } from '../store';
@@ -8,7 +8,10 @@ import { j2000ToThreeJS } from '../data/coordinates';
 
 export function Spacecraft() {
   const groupRef = useRef<THREE.Group>(null!);
+  const spriteRef = useRef<THREE.Sprite>(null!);
   const { camera } = useThree();
+
+  const texture = useLoader(THREE.TextureLoader, '/textures/orion-sprite.png');
 
   useFrame(() => {
     const { simTime, trajectory } = useMissionStore.getState();
@@ -22,23 +25,21 @@ export function Spacecraft() {
 
     // Scale based on camera distance so it's always visible
     const dist = camera.position.distanceTo(groupRef.current.position);
-    const scale = Math.max(0.3, dist * 0.012);
+    const scale = Math.max(0.4, dist * 0.018);
     groupRef.current.scale.setScalar(scale);
   });
 
   return (
     <group ref={groupRef}>
-      {/* Core */}
+      <sprite ref={spriteRef}>
+        <spriteMaterial map={texture} transparent depthWrite={false} />
+      </sprite>
+      {/* Glow halo behind sprite */}
       <mesh>
-        <sphereGeometry args={[1, 16, 16]} />
-        <meshStandardMaterial color="#ffaa00" emissive="#ff8800" emissiveIntensity={0.8} />
+        <sphereGeometry args={[1.8, 16, 16]} />
+        <meshBasicMaterial color="#ffaa00" transparent opacity={0.1} />
       </mesh>
-      {/* Glow halo */}
-      <mesh>
-        <sphereGeometry args={[2.5, 16, 16]} />
-        <meshBasicMaterial color="#ffaa00" transparent opacity={0.15} />
-      </mesh>
-      <Html position={[0, 6, 0]} center style={{ pointerEvents: 'none' }}>
+      <Html position={[0, 3, 0]} center style={{ pointerEvents: 'none' }}>
         <span style={{ color: '#ffcc44', fontSize: 11, fontWeight: 600, textShadow: '0 0 4px #000', whiteSpace: 'nowrap' }}>
           Orion
         </span>
