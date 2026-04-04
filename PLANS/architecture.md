@@ -26,7 +26,7 @@ graph TB
         DL["Data Layer\n(@tanstack/react-query)"]
     end
 
-    subgraph "API Server 192.168.1.91:4001"
+    subgraph "API Server <YOUR_SERVER_IP>:4001"
         API1["/api/horizons\n(cache + proxy)"]
         API2["/api/dsn\n(proxy)"]
     end
@@ -377,7 +377,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api': 'http://192.168.1.91:4001',
+      '/api': 'http://<YOUR_SERVER_IP>:4001',
     },
   },
   optimizeDeps: {
@@ -388,9 +388,9 @@ export default defineConfig({
 
 **Dev setup:**
 - Laptop: `npm run dev` (Vite on :5173), proxies `/api/*` → remote server
-- Remote (192.168.1.91): `npm run server` (Express on :4001, bound to 0.0.0.0)
+- Remote (<YOUR_SERVER_IP>): `npm run server` (Express on :4001, bound to 0.0.0.0)
 
-**Remote machine setup (192.168.1.91):**
+**Remote machine setup (<YOUR_SERVER_IP>):**
 ```bash
 # 1. Clone repo and install deps
 git clone <repo> ~/artemisee && cd ~/artemisee
@@ -404,7 +404,7 @@ sudo iptables -A INPUT -p tcp --dport 4001 -j ACCEPT
 
 # 3. If using Tailscale firewall (tailscale up --accept-routes), port should
 #    already be open on the tailscale0 interface. Only the LAN firewall matters
-#    since we're using 192.168.1.91 directly.
+#    since we're using <YOUR_SERVER_IP> directly.
 
 # 4. Start the API server
 npm run server
@@ -412,7 +412,7 @@ npm run server
 npx tsx watch server/index.ts
 
 # 5. Verify from laptop:
-curl http://192.168.1.91:4001/api/horizons?format=json&COMMAND=%27-1024%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500@399%27&START_TIME=%272026-04-02%27&STOP_TIME=%272026-04-03%27&STEP_SIZE=%271d%27
+curl http://<YOUR_SERVER_IP>:4001/api/horizons?format=json&COMMAND=%27-1024%27&MAKE_EPHEM=%27YES%27&EPHEM_TYPE=%27VECTORS%27&CENTER=%27500@399%27&START_TIME=%272026-04-02%27&STOP_TIME=%272026-04-03%27&STEP_SIZE=%271d%27
 ```
 
 ## Camera Presets

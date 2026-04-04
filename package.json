@@ -1,7 +1,13 @@
 {
   "name": "artemisee",
-  "private": true,
   "version": "0.1.0",
+  "description": "Interactive 3D visualization of NASA's Artemis II lunar flyby mission",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w00jay/artemisee.git"
+  },
+  "keywords": ["artemis", "nasa", "3d", "visualization", "react-three-fiber", "space", "moon"],
   "type": "module",
   "scripts": {
     "dev": "vite",
