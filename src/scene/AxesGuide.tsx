@@ -1,6 +1,6 @@
 import { Line, Html } from '@react-three/drei';
 
-const AXIS_LENGTH = 8; // Earth radii
+const AXIS_LENGTH = 12; // Earth radii
 
 const axes = [
   {
@@ -39,9 +39,9 @@ export function AxesGuide() {
           <Line
             points={points}
             color={color}
-            lineWidth={1}
+            lineWidth={2}
             transparent
-            opacity={0.4}
+            opacity={0.7}
             dashed
             dashSize={0.3}
             gapSize={0.2}
@@ -54,8 +54,8 @@ export function AxesGuide() {
 
       {/* Equatorial plane grid ring */}
       <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[5.9, 6, 64]} />
-        <meshBasicMaterial color="#ffffff" transparent opacity={0.06} side={2} />
+        <ringGeometry args={[11.8, 12, 64]} />
+        <meshBasicMaterial color="#ffffff" transparent opacity={0.08} side={2} />
       </mesh>
     </group>
   );
