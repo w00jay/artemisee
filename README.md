@@ -118,4 +118,10 @@ Positions are scaled so 1 unit = 1 Earth radius (6,371 km). The Moon orbits at ~
 
 MIT — see [LICENSE](LICENSE).
 
-Trajectory data from NASA/JPL is public domain. Planet textures from NASA are free to use with attribution.
+Trajectory data from NASA/JPL is public domain.
+
+### Image Credits
+
+- **Earth texture**: [Blue Marble Next Generation](https://visibleearth.nasa.gov/images/73909) — NASA Visible Earth
+- **Moon texture**: [LROC Color Map](https://svs.gsfc.nasa.gov/4720) — NASA Scientific Visualization Studio / Lunar Reconnaissance Orbiter
+- **Orion spacecraft sprite**: [NASA/JSC render](https://images.nasa.gov/details/jsc2022e046364) — public domain
