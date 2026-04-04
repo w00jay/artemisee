@@ -7,6 +7,7 @@ import { PlaybackControls } from './ui/PlaybackControls';
 import { CameraButtons } from './ui/CameraButtons';
 import { Timeline } from './ui/Timeline';
 import { DsnStatus } from './ui/DsnStatus';
+import { HelpPanel } from './ui/HelpPanel';
 import { fetchTrajectory } from './data/horizons';
 import { useMissionStore } from './store';
 
@@ -41,7 +42,10 @@ function App() {
         <Scene />
         <Overlay>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <MissionStats />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <MissionStats />
+              <HelpPanel />
+            </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
               <CameraButtons />
               <DsnStatus />
