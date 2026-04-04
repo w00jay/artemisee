@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/horizons", "destination": "/api/horizons" },
+    { "source": "/api/dsn", "destination": "/api/dsn" },
+    { "source": "/((?!api/).*)", "destination": "/" }
+  ]
+}
