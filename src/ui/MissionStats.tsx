@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 import { hermiteInterpolate } from '../data/interpolate';
-import { LAUNCH_DATE } from '../lib/constants';
+import { LAUNCH_DATE, MISSION_START } from '../lib/constants';
 import { Panel } from './Overlay';
 
 const LUNAR_DISTANCE_KM = 384_400;
@@ -80,6 +80,32 @@ export function MissionStats() {
 
     return { distEarth, distMoon, met };
   }, [simTime, trajectory]);
+
+  const met = simTime - LAUNCH_DATE.getTime();
+  const preSeparation = simTime < MISSION_START.getTime() && simTime >= LAUNCH_DATE.getTime();
+
+  if (!stats && !preSeparation) return null;
+
+  if (preSeparation) {
+    return (
+      <Panel>
+        <div style={{ fontWeight: 600, marginBottom: 6, fontSize: 13, color: '#7dd3fc', letterSpacing: '0.02em' }}>
+          Orion "Integrity"
+        </div>
+        <div style={{ fontSize: 12, color: '#fbbf24', marginBottom: 4 }}>
+          Pre-separation phase
+        </div>
+        <div style={{ fontSize: 11, color: 'rgba(228, 228, 231, 0.45)', lineHeight: 1.5 }}>
+          Orion is attached to the ICPS upper stage.<br />
+          Earth orbit, perigee raise, apogee raise.<br />
+          Tracking begins after ICPS separation.
+        </div>
+        <div style={{ marginTop: 6 }}>
+          <span style={labelStyle}>MET</span> <span style={valueStyle}>{formatMET(met)}</span>
+        </div>
+      </Panel>
+    );
+  }
 
   if (!stats) return null;
 
