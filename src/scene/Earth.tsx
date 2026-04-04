@@ -21,7 +21,7 @@ export function Earth() {
   return (
     <group>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[2, 64, 64]} />
+        <sphereGeometry args={[4, 64, 64]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <Html position={[0, 4, 0]} center style={{ pointerEvents: 'none' }}>
