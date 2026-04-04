@@ -4,15 +4,51 @@ import { MISSION_END, LAUNCH_DATE } from '../lib/constants';
 import { Panel } from './Overlay';
 
 const PHASES = [
-  { name: 'Launch / Ascent',        start: 0,      end: 0.016 },
-  { name: 'ICPS Separation',        start: 0.016,  end: 0.023 },
-  { name: 'Earth Orbit Ops',        start: 0.023,  end: 0.060 },
-  { name: 'Perigee Raise',          start: 0.060,  end: 0.117 },
-  { name: 'Trans-Lunar Injection',  start: 0.117,  end: 0.118 },
-  { name: 'Outbound Coast',         start: 0.118,  end: 0.472 },
-  { name: 'Lunar Flyby',            start: 0.472,  end: 0.642 },
-  { name: 'Return Coast',           start: 0.642,  end: 0.980 },
-  { name: 'Entry / Splashdown',     start: 0.980,  end: 1.0 },
+  {
+    name: 'Launch / Ascent',
+    start: 0, end: 0.016,
+    desc: 'SLS lifts off from LC-39B at Kennedy Space Center. Orion reaches orbit and deploys solar arrays.',
+  },
+  {
+    name: 'ICPS Separation',
+    start: 0.016, end: 0.023,
+    desc: 'Orion separates from the Interim Cryogenic Propulsion Stage. The crew is now flying independently.',
+  },
+  {
+    name: 'Earth Orbit Ops',
+    start: 0.023, end: 0.060,
+    desc: 'Orion performs systems checkouts in Earth orbit. CubeSats deploy from the upper stage.',
+  },
+  {
+    name: 'Perigee Raise',
+    start: 0.060, end: 0.117,
+    desc: 'Engine burn raises the low point of orbit, setting up for the Trans-Lunar Injection.',
+  },
+  {
+    name: 'Trans-Lunar Injection',
+    start: 0.117, end: 0.118,
+    desc: 'A 5-minute 55-second burn accelerates Orion to escape velocity, sending the crew toward the Moon.',
+  },
+  {
+    name: 'Outbound Coast',
+    start: 0.118, end: 0.472,
+    desc: 'Orion coasts toward the Moon for ~3.5 days. The crew performs trajectory correction burns as needed.',
+  },
+  {
+    name: 'Lunar Flyby',
+    start: 0.472, end: 0.642,
+    desc: 'Orion enters the lunar sphere of influence, reaches closest approach, then swings around the far side of the Moon using its gravity to return home.',
+  },
+  {
+    name: 'Return Coast',
+    start: 0.642, end: 0.980,
+    desc: 'Orion heads back to Earth over ~3 days. The crew tests manual piloting and performs return correction burns.',
+  },
+  {
+    name: 'Entry / Splashdown',
+    start: 0.980, end: 1.0,
+    desc: 'Orion separates from its service module, hits the atmosphere at 40,000 km/h, deploys parachutes, and splashes down in the Pacific off Baja California.',
+  },
 ];
 
 export function Timeline() {
@@ -91,6 +127,12 @@ export function Timeline() {
           }}
         />
       </div>
+
+      {currentPhase?.desc && (
+        <div style={{ fontSize: 11, color: 'rgba(228, 228, 231, 0.45)', lineHeight: 1.5, marginTop: 2 }}>
+          {currentPhase.desc}
+        </div>
+      )}
     </Panel>
   );
 }

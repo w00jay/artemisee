@@ -7,6 +7,7 @@ import { Panel } from './Overlay';
 
 const LUNAR_DISTANCE_KM = 384_400;
 const EARTH_RADIUS_KM = 6_371;
+const SPEED_OF_LIGHT_KMS = 299_792.458; // km/s
 
 function formatDistance(km: number): string {
   if (km < 10_000) return `${km.toLocaleString('en', { maximumFractionDigits: 0 })} km`;
@@ -43,7 +44,7 @@ function formatDuration(ms: number): string {
 const labelStyle: React.CSSProperties = {
   color: 'rgba(228, 228, 231, 0.5)',
   fontSize: 11,
-  width: 42,
+  width: 50,
   display: 'inline-block',
 };
 
@@ -59,6 +60,7 @@ export function MissionStats() {
   const stats = useMemo(() => {
     if (trajectory.length < 2) return null;
 
+    // Find bracketing points for velocity
     const pos = hermiteInterpolate(trajectory, simTime);
     if (!pos) return null;
 
@@ -76,9 +78,20 @@ export function MissionStats() {
       (pos.z - moonKm.z) ** 2,
     );
 
+    // Estimate velocity from nearby interpolation points (1 second apart)
+    const pos2 = hermiteInterpolate(trajectory, simTime + 1000);
+    let speed = 0;
+    if (pos2) {
+      const dx = pos2.x - pos.x;
+      const dy = pos2.y - pos.y;
+      const dz = pos2.z - pos.z;
+      speed = Math.sqrt(dx * dx + dy * dy + dz * dz); // km/s (over 1 second)
+    }
+
+    const lightTime = distEarth / SPEED_OF_LIGHT_KMS; // seconds
     const met = simTime - LAUNCH_DATE.getTime();
 
-    return { distEarth, distMoon, met };
+    return { distEarth, distMoon, met, speed, lightTime };
   }, [simTime, trajectory]);
 
   const met = simTime - LAUNCH_DATE.getTime();
@@ -129,6 +142,14 @@ export function MissionStats() {
         <div>
           <div><span style={labelStyle}>Moon</span> <span style={valueStyle}>{formatDistance(stats.distMoon)}</span></div>
           <div style={contextStyle}>{distanceContext(stats.distMoon, 'moon')}</div>
+        </div>
+        <div>
+          <div><span style={labelStyle}>Speed</span> <span style={valueStyle}>{stats.speed.toFixed(2)} km/s</span></div>
+          <div style={contextStyle}>{(stats.speed * 3600).toLocaleString('en', { maximumFractionDigits: 0 })} km/h</div>
+        </div>
+        <div>
+          <div><span style={labelStyle}>Light</span> <span style={valueStyle}>{stats.lightTime < 1 ? `${(stats.lightTime * 1000).toFixed(0)} ms` : `${stats.lightTime.toFixed(2)} s`}</span></div>
+          <div style={contextStyle}>one-way signal delay to Earth</div>
         </div>
         <div><span style={labelStyle}>MET</span> <span style={valueStyle}>{formatMET(stats.met)}</span></div>
       </div>

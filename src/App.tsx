@@ -8,6 +8,7 @@ import { CameraButtons } from './ui/CameraButtons';
 import { Timeline } from './ui/Timeline';
 import { DsnStatus } from './ui/DsnStatus';
 import { HelpPanel } from './ui/HelpPanel';
+import { Milestones } from './ui/Milestones';
 import { LoadingOverlay, ErrorOverlay } from './ui/StatusOverlay';
 import { fetchTrajectory } from './data/horizons';
 import { useMissionStore } from './store';
@@ -59,6 +60,7 @@ function App() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
               <CameraButtons />
+              <Milestones />
               <DsnStatus />
             </div>
           </div>
