@@ -5,7 +5,6 @@ import * as THREE from 'three';
 import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 import { j2000ToThreeJS } from '../data/coordinates';
-import { MOON_RADIUS_KM, EARTH_RADIUS_KM } from '../lib/constants';
 
 export function Moon() {
   const meshRef = useRef<THREE.Group>(null!);
