@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
+import { geoMoon, getKmPerAU } from '../../data/astronomy';
 import { getTrajectory } from '../../data/trajectory-cache';
 import { hermiteInterpolate } from '../../data/interpolate';
 import { getMissionPhase } from '../../data/events';
@@ -31,7 +31,8 @@ positionRouter.get('/', async (req, res) => {
 
     const distEarth = Math.sqrt(pos.x ** 2 + pos.y ** 2 + pos.z ** 2);
 
-    const moon = GeoMoon(new Date(epoch));
+    const KM_PER_AU = await getKmPerAU();
+    const moon = await geoMoon(new Date(epoch));
     const moonKm = { x: moon.x * KM_PER_AU, y: moon.y * KM_PER_AU, z: moon.z * KM_PER_AU };
     const distMoon = Math.sqrt(
       (pos.x - moonKm.x) ** 2 + (pos.y - moonKm.y) ** 2 + (pos.z - moonKm.z) ** 2,
