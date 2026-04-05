@@ -5,6 +5,7 @@ const links = [
   { label: 'JPL Horizons', url: 'https://ssd.jpl.nasa.gov/horizons/' },
   { label: 'NASA AROW Tracker', url: 'https://www.nasa.gov/missions/artemis/artemis-2/track-nasas-artemis-ii-mission-in-real-time/' },
   { label: 'DSN', url: 'https://eyes.nasa.gov/apps/dsn-now/' },
+  { label: 'GitHub', url: 'https://github.com/w00jay/artemisee' },
 ];
 
 const linkStyle: React.CSSProperties = {
