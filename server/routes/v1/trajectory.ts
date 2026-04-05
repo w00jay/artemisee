@@ -23,7 +23,7 @@ trajectoryRouter.get('/', async (req, res) => {
     }
 
     // Downsample by step
-    if (stepParam) {
+    if (stepParam && points.length > 0) {
       const stepMs = parseStep(stepParam);
       if (stepMs && stepMs > 0) {
         const sampled = [points[0]];

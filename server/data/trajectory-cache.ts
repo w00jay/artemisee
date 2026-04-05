@@ -21,6 +21,9 @@ async function fetchFromHorizons(): Promise<TrajectoryPoint[]> {
   const url = buildHorizonsUrl(MISSION_START, MISSION_END);
   console.log('[trajectory-cache] Fetching from JPL Horizons...');
   const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Horizons HTTP ${res.status}: ${res.statusText}`);
+  }
   const json = await res.json();
 
   if (json.error) {
@@ -28,6 +31,9 @@ async function fetchFromHorizons(): Promise<TrajectoryPoint[]> {
   }
 
   const points = parseHorizonsVectors(json);
+  if (points.length === 0) {
+    throw new Error('Horizons returned 0 trajectory points');
+  }
   console.log(`[trajectory-cache] Parsed ${points.length} trajectory points`);
   return points;
 }

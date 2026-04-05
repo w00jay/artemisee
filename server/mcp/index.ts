@@ -197,12 +197,15 @@ server.tool(
 
     const startEpoch = start ? new Date(start).getTime() : MISSION_START.getTime();
     const stopEpoch = stop ? new Date(stop).getTime() : MISSION_END.getTime();
+    if (isNaN(startEpoch) || isNaN(stopEpoch)) {
+      return { content: [{ type: 'text' as const, text: JSON.stringify({ error: 'Invalid start or stop time. Use ISO 8601 format.' }) }] };
+    }
     const stepMs = (step_minutes ?? 30) * 60 * 1000;
 
     let points = trajectory.filter((p) => p.epoch >= startEpoch && p.epoch <= stopEpoch);
 
     // Downsample
-    if (stepMs > 0) {
+    if (stepMs > 0 && points.length > 0) {
       const sampled = [points[0]];
       let lastEpoch = points[0].epoch;
       for (let i = 1; i < points.length; i++) {
