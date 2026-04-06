@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useMissionStore } from '../store';
-import { MISSION_END, LAUNCH_DATE } from '../lib/constants';
+import { getMission } from '../lib/missions';
 import { Panel } from './Overlay';
 
 const PHASES = [
@@ -54,12 +54,16 @@ const PHASES = [
 export function Timeline() {
   const simTime = useMissionStore((s) => s.simTime);
   const setSimTime = useMissionStore((s) => s.setSimTime);
+  const activeMission = useMissionStore((s) => s.activeMission);
+  const mission = getMission(activeMission);
+  const launchDate = mission.launchDate;
+  const missionEnd = mission.missionEnd;
 
   const progress = useMemo(() => {
-    const total = MISSION_END.getTime() - LAUNCH_DATE.getTime();
-    const elapsed = simTime - LAUNCH_DATE.getTime();
+    const total = missionEnd.getTime() - launchDate.getTime();
+    const elapsed = simTime - launchDate.getTime();
     return Math.max(0, Math.min(1, elapsed / total));
-  }, [simTime]);
+  }, [simTime, launchDate, missionEnd]);
 
   const currentPhase = PHASES.find(
     (p) => progress >= p.start && progress < p.end,
@@ -68,8 +72,8 @@ export function Timeline() {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const pct = (e.clientX - rect.left) / rect.width;
-    const total = MISSION_END.getTime() - LAUNCH_DATE.getTime();
-    setSimTime(LAUNCH_DATE.getTime() + pct * total);
+    const total = missionEnd.getTime() - launchDate.getTime();
+    setSimTime(launchDate.getTime() + pct * total);
   };
 
   return (

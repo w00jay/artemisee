@@ -12,20 +12,27 @@ import { HelpPanel } from './ui/HelpPanel';
 import { Milestones } from './ui/Milestones';
 import { LoadingOverlay, ErrorOverlay } from './ui/StatusOverlay';
 import { InfoLinks } from './ui/InfoLinks';
+import { MissionSelector } from './ui/MissionSelector';
+import { NewsPanel } from './ui/NewsPanel';
+import { SpaceWeather } from './ui/SpaceWeather';
+import { ExplorePanel } from './ui/ExplorePanel';
 import { fetchTrajectory } from './data/horizons';
 import { useMissionStore } from './store';
+import { getMission } from './lib/missions';
 
 const queryClient = new QueryClient();
 
 function DataLoader() {
   const setTrajectory = useMissionStore((s) => s.setTrajectory);
   const trajectory = useMissionStore((s) => s.trajectory);
+  const activeMission = useMissionStore((s) => s.activeMission);
+  const mission = getMission(activeMission);
 
   const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ['trajectory'],
-    queryFn: () => fetchTrajectory(),
-    refetchInterval: 30 * 60 * 1000,
-    staleTime: 15 * 60 * 1000,
+    queryKey: ['trajectory', activeMission],
+    queryFn: () => fetchTrajectory(mission),
+    refetchInterval: mission.status === 'active' ? 30 * 60 * 1000 : false,
+    staleTime: mission.status === 'active' ? 15 * 60 * 1000 : Infinity,
   });
 
   useEffect(() => {
@@ -59,6 +66,7 @@ function App() {
         <Overlay>
           <div className="overlay-top">
             <div className="overlay-top-left">
+              <MissionSelector />
               <MissionStats />
               <HelpPanel />
             </div>
@@ -69,6 +77,9 @@ function App() {
               <div className="mobile-hide">
                 <Milestones />
                 <DsnStatus />
+                <SpaceWeather />
+                <NewsPanel />
+                <ExplorePanel />
               </div>
             </div>
           </div>

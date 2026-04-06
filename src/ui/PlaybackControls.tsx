@@ -1,4 +1,5 @@
 import { useMissionStore } from '../store';
+import { getMission } from '../lib/missions';
 import { Panel } from './Overlay';
 
 const SPEEDS = [1, 10, 60, 600, 3600];
@@ -27,6 +28,10 @@ export function PlaybackControls() {
   const setPlaying = useMissionStore((s) => s.setPlaying);
   const setSpeed = useMissionStore((s) => s.setSpeed);
   const jumpToNow = useMissionStore((s) => s.jumpToNow);
+  const setSimTime = useMissionStore((s) => s.setSimTime);
+  const activeMission = useMissionStore((s) => s.activeMission);
+  const mission = getMission(activeMission);
+  const isCompleted = mission.status === 'completed';
 
   return (
     <Panel style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -48,9 +53,15 @@ export function PlaybackControls() {
         </button>
       ))}
 
-      <button className="btn" onClick={jumpToNow}>
-        NOW
-      </button>
+      {isCompleted ? (
+        <button className="btn" onClick={() => setSimTime(mission.missionStart.getTime())}>
+          RESTART
+        </button>
+      ) : (
+        <button className="btn" onClick={jumpToNow}>
+          NOW
+        </button>
+      )}
     </Panel>
   );
 }

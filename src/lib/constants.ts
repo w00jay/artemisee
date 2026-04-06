@@ -26,3 +26,11 @@ export const HORIZONS_DEFAULTS = {
   VEC_TABLE: "'2'",
   STEP_SIZE: "'30m'",
 } as const;
+
+/** Build Horizons query params for any spacecraft */
+export function horizonsParams(horizonsId: string) {
+  return {
+    ...HORIZONS_DEFAULTS,
+    COMMAND: `'${horizonsId}'`,
+  };
+}

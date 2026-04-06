@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 import type { TrajectoryPoint, DsnDish, CameraPreset } from './data/types';
+import { DEFAULT_MISSION } from './lib/missions';
 
 interface MissionStore {
+  // Mission
+  activeMission: string;
+
   // Time
   simTime: number;
   playbackSpeed: number;
@@ -15,6 +19,7 @@ interface MissionStore {
   dsnDishes: DsnDish[];
 
   // Actions
+  setActiveMission: (id: string) => void;
   tick: (deltaSec: number) => void;
   setPlaying: (playing: boolean) => void;
   setSpeed: (speed: number) => void;
@@ -26,6 +31,8 @@ interface MissionStore {
 }
 
 export const useMissionStore = create<MissionStore>((set) => ({
+  activeMission: DEFAULT_MISSION,
+
   simTime: Date.now(),
   playbackSpeed: 1,
   isPlaying: true,
@@ -35,6 +42,7 @@ export const useMissionStore = create<MissionStore>((set) => ({
   trajectory: [],
   dsnDishes: [],
 
+  setActiveMission: (id) => set({ activeMission: id, trajectory: [], dsnDishes: [] }),
   tick: (deltaSec) =>
     set((state) => {
       if (!state.isPlaying) return state;

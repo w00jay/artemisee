@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { GeoMoon, KM_PER_AU } from 'astronomy-engine';
 import { useMissionStore } from '../store';
 import { hermiteInterpolate } from '../data/interpolate';
-import { LAUNCH_DATE, MISSION_START } from '../lib/constants';
+import { getMission } from '../lib/missions';
 import { Panel } from './Overlay';
 
 const LUNAR_DISTANCE_KM = 384_400;
@@ -56,6 +56,8 @@ const valueStyle: React.CSSProperties = {
 export function MissionStats() {
   const simTime = useMissionStore((s) => s.simTime);
   const trajectory = useMissionStore((s) => s.trajectory);
+  const activeMission = useMissionStore((s) => s.activeMission);
+  const mission = getMission(activeMission);
 
   const stats = useMemo(() => {
     if (trajectory.length < 2) return null;
@@ -89,13 +91,13 @@ export function MissionStats() {
     }
 
     const lightTime = distEarth / SPEED_OF_LIGHT_KMS; // seconds
-    const met = simTime - LAUNCH_DATE.getTime();
+    const met = simTime - mission.launchDate.getTime();
 
     return { distEarth, distMoon, met, speed, lightTime };
   }, [simTime, trajectory]);
 
-  const met = simTime - LAUNCH_DATE.getTime();
-  const preSeparation = simTime < MISSION_START.getTime() && simTime >= LAUNCH_DATE.getTime();
+  const met = simTime - mission.launchDate.getTime();
+  const preSeparation = simTime < mission.missionStart.getTime() && simTime >= mission.launchDate.getTime();
 
   if (!stats && !preSeparation) return null;
 
@@ -103,7 +105,7 @@ export function MissionStats() {
     return (
       <Panel>
         <div style={{ fontWeight: 600, marginBottom: 6, fontSize: 13, color: '#7dd3fc', letterSpacing: '0.02em' }}>
-          Orion "Integrity"
+          {mission.spacecraft}
         </div>
         <div style={{ fontSize: 12, color: '#fbbf24', marginBottom: 4 }}>
           Pre-separation phase
@@ -137,7 +139,7 @@ export function MissionStats() {
         rel="noopener noreferrer"
         style={{ fontWeight: 600, marginBottom: 6, fontSize: 13, color: '#7dd3fc', letterSpacing: '0.02em', textDecoration: 'none', display: 'block' }}
       >
-        Orion "Integrity"
+        {mission.spacecraft}
       </a>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
         <div>

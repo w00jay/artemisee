@@ -1,5 +1,6 @@
 import type { TrajectoryPoint } from './types';
-import { HORIZONS_DEFAULTS, MISSION_START, MISSION_END } from '../lib/constants';
+import { horizonsParams, MISSION_START, MISSION_END } from '../lib/constants';
+import type { MissionDef } from '../lib/missions';
 
 /**
  * Convert Julian Date to Unix milliseconds.
@@ -52,13 +53,15 @@ export function parseHorizonsVectors(json: { result: string }): TrajectoryPoint[
 
 /**
  * Fetch trajectory from our API proxy.
+ * Accepts an optional mission def to query any Artemis mission.
  */
-export async function fetchTrajectory(
-  start: Date = MISSION_START,
-  end: Date = MISSION_END,
-): Promise<TrajectoryPoint[]> {
+export async function fetchTrajectory(mission?: MissionDef): Promise<TrajectoryPoint[]> {
+  const start = mission?.missionStart ?? MISSION_START;
+  const end = mission?.missionEnd ?? MISSION_END;
+  const hId = mission?.horizonsId ?? '-1024';
+
   const params = new URLSearchParams({
-    ...HORIZONS_DEFAULTS,
+    ...horizonsParams(hId),
     START_TIME: `'${start.toISOString().slice(0, 19)}'`,
     STOP_TIME: `'${end.toISOString().slice(0, 19)}'`,
   });
