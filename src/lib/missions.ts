@@ -28,8 +28,8 @@ export const MISSIONS: Record<string, MissionDef> = {
     spacecraft: 'Orion "Moonikin"',
     horizonsId: '-1023',
     launchDate: new Date('2022-11-16T06:47:44Z'),
-    missionStart: new Date('2022-11-16T08:00:00Z'),
-    missionEnd: new Date('2022-12-11T17:40:00Z'),
+    missionStart: new Date('2022-11-16T09:10:00Z'),  // Horizons ephemeris starts ~09:03 TDB
+    missionEnd: new Date('2022-12-11T17:20:00Z'),    // Horizons ephemeris ends ~17:21 TDB
     description: 'Uncrewed lunar orbit test flight',
     status: 'completed',
   },

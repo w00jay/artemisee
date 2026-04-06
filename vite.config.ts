@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': apiUrl,
+        '/v1': apiUrl,
       },
     },
     optimizeDeps: {
