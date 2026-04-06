@@ -1,3 +1,4 @@
+import { version } from '../../package.json';
 import { Panel } from './Overlay';
 
 const links = [
@@ -18,6 +19,15 @@ const linkStyle: React.CSSProperties = {
 export function InfoLinks() {
   return (
     <Panel style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', padding: '8px 14px' }}>
+      <a
+        href={`https://github.com/w00jay/artemisee/releases/tag/v${version}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: 'rgba(228, 228, 231, 0.3)', textDecoration: 'none', fontSize: 10, fontFamily: 'monospace' }}
+      >
+        v{version}
+      </a>
+      <span style={{ color: 'rgba(228, 228, 231, 0.2)' }}>|</span>
       {links.map(({ label, url }, i) => (
         <span key={url} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           {i > 0 && <span style={{ color: 'rgba(228, 228, 231, 0.2)' }}>|</span>}
