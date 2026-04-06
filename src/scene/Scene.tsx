@@ -9,7 +9,8 @@ import { CameraController } from './CameraController';
 import { AxesGuide } from './AxesGuide';
 import { CelestialMarkers } from './CelestialMarkers';
 import { Orbits } from './Orbits';
-import { ISSMarker } from './ISSMarker';
+// TODO: Re-enable when Express API is available on Vercel
+// import { ISSMarker } from './ISSMarker';
 import { useMissionStore } from '../store';
 
 function ClockTick() {
@@ -37,7 +38,6 @@ export function Scene() {
         <AxesGuide />
         <CelestialMarkers />
         <Orbits />
-        <ISSMarker />
       </Suspense>
 
       <CameraController />
